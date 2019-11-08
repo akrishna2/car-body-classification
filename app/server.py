@@ -86,7 +86,7 @@ def model_predict(img_path, model):
             cartpye='Sedan'
         else:
             cartype='Suv'
-    return cartype
+        return cartype
     
 
     # model = torch.load('../Car/model_rsnet50_cpu.h5', map_location=lambda storage, location: storage)
