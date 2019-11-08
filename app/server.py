@@ -30,11 +30,20 @@ async def download_file(url, dest):
 
 async def setup_model():
     #UNCOMMENT HERE FOR CUSTOM TRAINED MODEL
-    #await download_file(model_file_url, MODEL_PATH)
-   # model = load_model(MODEL_PATH) # Load your Custom trained model
+   # await download_file(model_file_url, MODEL_PATH)
+    # Model class must be defined somewhere
+    device = torch.device('cpu')
+    model = models.resnet34(pretrained=True)
+    num_ftrs = model.fc.in_features
+    # replace the last fc layer with an untrained one (requires grad by default)
+    model.fc = nn.Linear(num_ftrs, 5)
+    # model_ft = model_ft.to(device)
+    model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
+    #model = load_model(MODEL_PATH) # Load your Custom trained model
     #model._make_predict_function()
     #model = ResNet50(weights='imagenet') # COMMENT, IF you have Custom trained model
-    #return model
+    print("setup_model complete")
+    return model
 
 # Asynchronous Steps
 loop = asyncio.get_event_loop()
@@ -50,7 +59,7 @@ async def upload(request):
     with open(IMG_FILE_SRC, 'wb') as f: f.write(bytes)
     return model_predict(IMG_FILE_SRC, model)
 
-def model_predict(img_path, MODEL_PATH):
+def model_predict(img_path, model):
     device = torch.device("cpu")
     def find_classes(dir):
         if(predicted.item()==0):
@@ -64,19 +73,12 @@ def model_predict(img_path, MODEL_PATH):
         else:
             cartype='Suv'
     return cartype
-    # Model class must be defined somewhere
-    device = torch.device('cpu')
-    model_ft = models.resnet34(pretrained=True)
-    num_ftrs = model_ft.fc.in_features
-    # replace the last fc layer with an untrained one (requires grad by default)
-    model_ft.fc = nn.Linear(num_ftrs, 5)
-    # model_ft = model_ft.to(device)
-    model_ft.load_state_dict(torch.load(MODEL_PATH, map_location=device))
+    
 
     # model = torch.load('../Car/model_rsnet50_cpu.h5', map_location=lambda storage, location: storage)
 
     dataset_dir = "../Car/car_data_new/"
-    model_ft.eval()
+    model.eval()
     # transforms for the input image
     loader = transforms.Compose([transforms.Resize((400, 400)),
                                 transforms.ToTensor(),
@@ -87,7 +89,7 @@ def model_predict(img_path, MODEL_PATH):
     image = loader(image).float()
     image = torch.autograd.Variable(image, requires_grad=True)
     image = image.unsqueeze(0)
-    output = model_ft(image)
+    output = model(image)
     _label, predicted = torch.max(output.data, 1)
     # get the class name of the prediction
     
