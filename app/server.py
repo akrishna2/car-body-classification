@@ -30,10 +30,10 @@ async def download_file(url, dest):
 
 async def setup_model():
     #UNCOMMENT HERE FOR CUSTOM TRAINED MODEL
-    # await download_file(model_file_url, MODEL_PATH)
-    # model = load_model(MODEL_PATH) # Load your Custom trained model
-    # model._make_predict_function()
-    model = ResNet50(weights='imagenet') # COMMENT, IF you have Custom trained model
+    await download_file(model_file_url, MODEL_PATH)
+    model = load_model(MODEL_PATH) # Load your Custom trained model
+    model._make_predict_function()
+    #model = ResNet50(weights='imagenet') # COMMENT, IF you have Custom trained model
     return model
 
 # Asynchronous Steps
@@ -83,7 +83,7 @@ def model_predict(img_path, model):
                                 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
     img_loc = "../Car/Prediction_folder/"
     file_name="1445460302-mini-convertible.jpg"
-    image = Image.open(img_loc+file_name)
+    image = Image.open(img_path)
     image = loader(image).float()
     image = torch.autograd.Variable(image, requires_grad=True)
     image = image.unsqueeze(0)
