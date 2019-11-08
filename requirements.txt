@@ -9,4 +9,5 @@ uvicorn
 python-multipart
 aiofiles
 aiohttp
-pytorch
+torch
+torchvision
