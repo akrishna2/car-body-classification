@@ -11,14 +11,14 @@ import uvicorn, aiohttp, asyncio
 import base64, sys, numpy as np
 
 path = Path(__file__).parent
-model_file_url = 'https://dl.dropboxusercontent.com/s/egjbcj13vdaba1q/cpu_model.h5?dl=0'
-model_file_name = 'model'
+#model_file_url = 'https://dl.dropboxusercontent.com/s/egjbcj13vdaba1q/cpu_model.h5?dl=0'
+#model_file_name = 'model'
 
 app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
 app.mount('/static', StaticFiles(directory='app/static'))
 
-MODEL_PATH = path/'models'/f'{model_file_name}.h5'
+MODEL_PATH = path/'models'/cpu_model_state_dict.h5'
 IMG_FILE_SRC = '/tmp/saved_image.png'
 
 async def download_file(url, dest):
@@ -30,7 +30,7 @@ async def download_file(url, dest):
 
 async def setup_model():
     #UNCOMMENT HERE FOR CUSTOM TRAINED MODEL
-    await download_file(model_file_url, MODEL_PATH)
+    #await download_file(model_file_url, MODEL_PATH)
     model = load_model(MODEL_PATH) # Load your Custom trained model
     model._make_predict_function()
     #model = ResNet50(weights='imagenet') # COMMENT, IF you have Custom trained model
@@ -71,7 +71,7 @@ def model_predict(img_path, model):
     # replace the last fc layer with an untrained one (requires grad by default)
     model_ft.fc = nn.Linear(num_ftrs, 5)
     # model_ft = model_ft.to(device)
-    model_ft.load_state_dict(torch.load('../Car/cpu_model_state_dict.h5', map_location=device))
+    model_ft.load_state_dict(torch.load(model, map_location=device))
 
     # model = torch.load('../Car/model_rsnet50_cpu.h5', map_location=lambda storage, location: storage)
 
