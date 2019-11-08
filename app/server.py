@@ -18,7 +18,7 @@ app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
 app.mount('/static', StaticFiles(directory='app/static'))
 
-MODEL_PATH = path/'models'/cpu_model_state_dict.h5'
+MODEL_PATH = path/'models/cpu_model_state_dict.h5'
 IMG_FILE_SRC = '/tmp/saved_image.png'
 
 async def download_file(url, dest):
