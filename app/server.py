@@ -31,10 +31,10 @@ async def download_file(url, dest):
 async def setup_model():
     #UNCOMMENT HERE FOR CUSTOM TRAINED MODEL
     #await download_file(model_file_url, MODEL_PATH)
-    model = load_model(MODEL_PATH) # Load your Custom trained model
-    model._make_predict_function()
+   # model = load_model(MODEL_PATH) # Load your Custom trained model
+    #model._make_predict_function()
     #model = ResNet50(weights='imagenet') # COMMENT, IF you have Custom trained model
-    return model
+    #return model
 
 # Asynchronous Steps
 loop = asyncio.get_event_loop()
@@ -50,7 +50,7 @@ async def upload(request):
     with open(IMG_FILE_SRC, 'wb') as f: f.write(bytes)
     return model_predict(IMG_FILE_SRC, model)
 
-def model_predict(img_path, model):
+def model_predict(img_path, MODEL_PATH):
     device = torch.device("cpu")
     def find_classes(dir):
         if(predicted.item()==0):
@@ -71,7 +71,7 @@ def model_predict(img_path, model):
     # replace the last fc layer with an untrained one (requires grad by default)
     model_ft.fc = nn.Linear(num_ftrs, 5)
     # model_ft = model_ft.to(device)
-    model_ft.load_state_dict(torch.load(model, map_location=device))
+    model_ft.load_state_dict(torch.load(MODEL_PATH, map_location=device))
 
     # model = torch.load('../Car/model_rsnet50_cpu.h5', map_location=lambda storage, location: storage)
 
