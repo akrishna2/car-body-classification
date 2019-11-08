@@ -76,14 +76,15 @@ async def upload(request):
 def model_predict(img_path, model):
     device = torch.device("cpu")
     def find_classes(dir):
+        cartype = 'Other Body types'
         if(predicted.item()==0):
             cartype = 'Convertible'
         elif(predicted.item()==1):
-            cartpye='Coupe'
+            cartype='Coupe'
         elif(predicted.item()==2):
-            cartpye='Hatchback'
+            cartype='Hatchback'
         elif(predicted.item()==3):
-            cartpye='Sedan'
+            cartype='Sedan'
         else:
             cartype='Suv'
         return cartype
