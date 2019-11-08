@@ -94,7 +94,7 @@ def model_predict(img_path, model):
     print("==============================================================================================")
     display(Image.open(img_loc+file_name))
     print(find_classes(predicted.item()))
-    return find_classes(predicted.item())
+    return HTMLResponse(find_classes(predicted.item()))
 
 
 
