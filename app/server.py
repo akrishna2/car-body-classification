@@ -9,6 +9,20 @@ from starlette.middleware.cors import CORSMiddleware
 from pathlib import Path
 import uvicorn, aiohttp, asyncio
 import base64, sys, numpy as np
+import matplotlib.pyplot as plt
+import numpy as np
+
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import torchvision
+import torchvision.models as models
+import torchvision.transforms as transforms
+
+import time
+import os
+import PIL.Image as Image
+from IPython.display import display
 
 path = Path(__file__).parent
 #model_file_url = 'https://dl.dropboxusercontent.com/s/egjbcj13vdaba1q/cpu_model.h5?dl=0'
