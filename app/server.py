@@ -68,13 +68,9 @@ loop.close()
 @app.route("/upload", methods=["POST"])
 async def upload(request):
     data = await request.form()
-    print(data)
-    print(type(data))
-    print(data["img"])
-    print(typr(data["img"]))
-    #img_bytes = await (data["img"].read())
-    #bytes = base64.b64decode(img_bytes)
-    #with open(IMG_FILE_SRC, 'wb') as f: f.write(bytes)
+    img_bytes = await (data["img"].read())
+    bytes = base64.b64decode(img_bytes)
+    with open(IMG_FILE_SRC, 'wb') as f: f.write(bytes)
     return model_predict(IMG_FILE_SRC, model)
 
 def model_predict(img_path, model):
