@@ -12,6 +12,9 @@ import base64, sys, numpy as np
 import matplotlib.pyplot as plt
 import numpy as np
 
+from bs4 import BeautifulSoup as BS
+import bs4
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -112,7 +115,13 @@ def model_predict(img_path, model):
     #display(Image.open(img_loc+file_name))
     print(find_classes(predicted.item()))
     result_html2 = path/'static'/'result2.html'
-    result_html = str(result_html2.open().read()+ find_classes(predicted.item()))
+    with open(result_html2) as inf:
+    txt = inf.read()
+    soup = bs4.BeautifulSoup(txt,features="html.parser")
+    # create new link
+    span = soup.find("span", {"id": "result1"})
+    span.string.replace_with(find_classes(predicted.item()))
+    result_html = str(result_html2.open().read())
     return  HTMLResponse(result_html)
 
 
