@@ -13,3 +13,4 @@ torch
 torchvision
 matplotlib
 ipython
+bs4
