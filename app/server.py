@@ -114,13 +114,16 @@ def model_predict(img_path, model):
     print("==============================================================================================")
     #display(Image.open(img_loc+file_name))
     print(find_classes(predicted.item()))
-    result_html2 = path/'static'/'result2.html'
-    with open(result_html2) as inf:
-    txt = inf.read()
-    soup = bs4.BeautifulSoup(txt,features="html.parser")
-    # create new link
-    span = soup.find("span", {"id": "result1"})
-    span.string.replace_with(find_classes(predicted.item()))
+    result_html_temp = path/'static'/'result2.html'
+    with open(result_html_temp) as inf:
+        txt = inf.read()
+        soup = bs4.BeautifulSoup(txt,features="html.parser")
+        # create new link
+        span = soup.find("span", {"id": "result1"})
+        span.string.replace_with(find_classes(predicted.item()))
+    with open("result.html", "w") as file:
+        file.write(str(soup))
+    result_html2=path/'static'/'result.html'
     result_html = str(result_html2.open().read())
     return  HTMLResponse(result_html)
 
