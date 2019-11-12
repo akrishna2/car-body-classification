@@ -109,10 +109,15 @@ def model_predict(img_path, model):
     for file in  listdir(dest_folder):
         if file.lower().endswith(('.png', '.jpg', '.jpeg','jfif')):
             os.remove(file)
+    print("Copying File")
     shutil.copy(img_path, dest_folder)
+    print("img path: ",img_path)
+    
+    print("Copied File")
     for file in  listdir(dest_folder):
         if file.lower().endswith(('.png', '.jpg', '.jpeg','jfif')):
-            os.rename(file, 'image.jpg')
+            print(file)
+            os.rename(file, dest_folder+'//image.jpg')
         
             
     image = Image.open(img_path)
