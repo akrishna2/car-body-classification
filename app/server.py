@@ -117,7 +117,7 @@ def model_predict(img_path, model):
     for file in  listdir(dest_folder):
         if file.lower().endswith(('.png', '.jpg', '.jpeg','jfif')):
             print(file)
-            os.rename(file, dest_folder+'//image.jpg')
+            os.rename(file, path/'static'/'vendor'/'result_files'/'image.jpg')
         
             
     image = Image.open(img_path)
