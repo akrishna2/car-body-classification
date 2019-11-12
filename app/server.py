@@ -11,6 +11,8 @@ import uvicorn, aiohttp, asyncio
 import base64, sys, numpy as np
 import matplotlib.pyplot as plt
 import numpy as np
+import shutil
+from os import listdir
 
 from bs4 import BeautifulSoup as BS
 import bs4
@@ -103,6 +105,16 @@ def model_predict(img_path, model):
                                 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
     img_loc = "../Car/Prediction_folder/"
     file_name="1445460302-mini-convertible.jpg"
+    dest_folder = path/'static'/'vendor'/'result_files'
+    for file in  listdir(dest_folder):
+        if file.lower().endswith(('.png', '.jpg', '.jpeg','jfif')):
+            os.remove(file)
+    shutil.copy(img_path, dest_folder)
+    for file in  listdir(dest_folder):
+        if file.lower().endswith(('.png', '.jpg', '.jpeg','jfif')):
+            os.rename(file, 'image.jpg')
+        
+            
     image = Image.open(img_path)
     image = loader(image).float()
     image = torch.autograd.Variable(image, requires_grad=True)
