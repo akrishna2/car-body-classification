@@ -106,18 +106,18 @@ def model_predict(img_path, model):
     img_loc = "../Car/Prediction_folder/"
     file_name="1445460302-mini-convertible.jpg"
     dest_folder = path/'static'/'vendor'/'result_files'
-    for file in  listdir(dest_folder):
-        if file.lower().endswith(('.png', '.jpg', '.jpeg','jfif')):
-            os.remove(file)
-    print("Copying File")
-    shutil.copy(img_path, dest_folder)
-    print("img path: ",img_path)
+#    for file in  listdir(dest_folder):
+    #    if file.lower().endswith(('.png', '.jpg', '.jpeg','jfif')):
+     #       os.remove(file)
+    #print("Copying File")
+   # shutil.copy(img_path, dest_folder)
+   # print("img path: ",img_path)
     
-    print("Copied File")
-    for file in  listdir(dest_folder):
-        if file.lower().endswith(('.png', '.jpg', '.jpeg','jfif')):
-            print(file)
-            os.rename(file, path/'static'/'vendor'/'result_files'/'image.jpg')
+    #print("Copied File")
+    #for file in  listdir(dest_folder):
+    #    if file.lower().endswith(('.png', '.jpg', '.jpeg','jfif')):
+     #       print(file)
+      #      os.rename(file, path/'static'/'vendor'/'result_files'/'image.jpg')
         
             
     image = Image.open(img_path)
