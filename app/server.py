@@ -103,8 +103,8 @@ def model_predict(img_path, model):
     loader = transforms.Compose([transforms.Resize((400, 400)),
                                 transforms.ToTensor(),
                                 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-    img_loc = "../Car/Prediction_folder/"
-    file_name="1445460302-mini-convertible.jpg"
+    #img_loc = "../Car/Prediction_folder/"
+    #file_name="1445460302-mini-convertible.jpg"
     #dest_folder = ‘/tmp’/'static'/'vendor'/'result_files'
     #for file in  listdir(dest_folder):
      #   if file.lower().endswith(('.png', '.jpg', '.jpeg','jfif')):
