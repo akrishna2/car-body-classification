@@ -128,6 +128,7 @@ def model_predict(img_path, model):
     _label, predicted = torch.max(output.data, 1)
     # get the class name of the prediction
     
+    
     print("==============================================================================================")
     #display(Image.open(img_loc+file_name))
     print(find_classes(predicted.item()))
