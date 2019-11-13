@@ -105,19 +105,19 @@ def model_predict(img_path, model):
                                 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
     img_loc = "../Car/Prediction_folder/"
     file_name="1445460302-mini-convertible.jpg"
-    dest_folder = path/'static'/'vendor'/'result_files'
-#    for file in  listdir(dest_folder):
-    #    if file.lower().endswith(('.png', '.jpg', '.jpeg','jfif')):
-     #       os.remove(file)
+    dest_folder = ‘/tmp’/'static'/'vendor'/'result_files'
+    #for file in  listdir(dest_folder):
+     #   if file.lower().endswith(('.png', '.jpg', '.jpeg','jfif')):
+    #        os.remove(file)
     #print("Copying File")
-   # shutil.copy(img_path, dest_folder)
+   # shutil.copy(img_path, ‘/tmp’/'static'/'vendor'/'result_files')
    # print("img path: ",img_path)
     
     #print("Copied File")
     #for file in  listdir(dest_folder):
     #    if file.lower().endswith(('.png', '.jpg', '.jpeg','jfif')):
-     #       print(file)
-      #      os.rename(file, path/'static'/'vendor'/'result_files'/'image.jpg')
+    #        print(file)
+    #        os.rename(file, ‘/tmp’/'static'/'vendor'/'result_files'/'image.jpg')
         
             
     image = Image.open(img_path)
@@ -132,7 +132,7 @@ def model_predict(img_path, model):
     #display(Image.open(img_loc+file_name))
     print(find_classes(predicted.item()))
     file=find_classes(predicted.item())
-    result_html2=path/'static'/'vendor'/'result_files'/file
+    result_html2=path/'static'/file
     result_html = str(result_html2.open().read())
     return  HTMLResponse(result_html)
 
